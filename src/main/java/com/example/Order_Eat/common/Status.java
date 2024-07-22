@@ -1,0 +1,5 @@
+package com.example.Order_Eat.common;
+
+public enum Status {
+    WAIT, OUT_OF_FOOD, STORE_ACCEPT_ORDER, SHIPPER_ACCEPT_ORDER, SHIPPER_ARRIVED, SHIPPER_DELIVERY, ORDER_END
+}
