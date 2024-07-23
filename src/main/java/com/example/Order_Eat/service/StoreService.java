@@ -6,7 +6,9 @@ import com.example.Order_Eat.domain.response.ApiResponse;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface MenuStoreService {
+public interface StoreService {
+    ApiResponse getStores();
+
     boolean addMenu(int id ,Menu_Store_Request menu);
     ApiResponse getMenu(int id);
 }

@@ -21,5 +21,5 @@ public class Order_Menu {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "OrderId", referencedColumnName = "id")
-    private Orders order_eat;
+    private Orders orders;
 }

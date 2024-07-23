@@ -4,17 +4,34 @@ import com.example.Order_Eat.domain.entity.Menu;
 import com.example.Order_Eat.domain.entity.Store;
 import com.example.Order_Eat.domain.request.Menu_Store_Request;
 import com.example.Order_Eat.domain.response.ApiResponse;
+import com.example.Order_Eat.domain.response.Menu_Response;
+import com.example.Order_Eat.domain.response.Store_Response;
 import com.example.Order_Eat.repository.MenuRepository;
 import com.example.Order_Eat.repository.StoreRepository;
-import com.example.Order_Eat.service.MenuStoreService;
+import com.example.Order_Eat.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
-public class MenuStoreServiceImpl implements MenuStoreService {
+public class StoreServiceImpl implements StoreService {
     private final MenuRepository menuRepository;
     private final StoreRepository storeRepository;
+
+    @Override
+    public ApiResponse getStores() {
+        List<Store> stores = storeRepository.findAll();
+        List<Store_Response> store_responses = stores
+                .stream()
+                .map(store -> new Store_Response(store))
+                .collect(Collectors.toList());
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setResult(store_responses);
+        return apiResponse;
+    }
 
     @Override
     public boolean addMenu(int id, Menu_Store_Request menu) {
@@ -33,7 +50,9 @@ public class MenuStoreServiceImpl implements MenuStoreService {
     public ApiResponse getMenu(int id) {
         Store store = storeRepository.findById(id).get();
         ApiResponse apiResponse = new ApiResponse();
-        apiResponse.setResult(menuRepository.findByStore(store));
+        List<Menu> menus = menuRepository.findByStore(store);
+        List<Menu_Response> menuResponses = menus.stream().map(menu -> new Menu_Response(menu)).collect(Collectors.toUnmodifiableList());
+        apiResponse.setResult(menuResponses);
         return apiResponse;
     }
 }

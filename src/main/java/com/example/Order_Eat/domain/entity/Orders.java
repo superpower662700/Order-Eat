@@ -16,15 +16,15 @@ public class Orders {
     private int id;
     private String note;
     private Status status;
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ShipperId", referencedColumnName = "id")
     Shipper shipper;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "StoreId", referencedColumnName = "id")
     Store store;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserId", referencedColumnName = "id")
     User user;
 }

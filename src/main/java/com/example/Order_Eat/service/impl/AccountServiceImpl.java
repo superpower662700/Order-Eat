@@ -78,7 +78,6 @@ public class AccountServiceImpl implements AccountService {
         ApiResponse apiResponse = new ApiResponse();
         Account a = accountRepository.findByName(account.getName());
         if(a != null && a.getPassword().equals(account.getPassword())) {
-
             if ( userRepository.findByAccount(a) != null) {
                 apiResponse.setResult(userRepository.findByAccount(a));
                 }
